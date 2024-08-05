@@ -6,27 +6,46 @@
 //
  
 import UIKit
+import RxCocoa
+import RxSwift
 import SnapKit
 
-class PhoneViewController: UIViewController {
+final class PhoneViewController: UIViewController {
    
     let phoneTextField = SignTextField(placeholderText: "연락처를 입력해주세요")
     let nextButton = PointButton(title: "다음")
     
+    
+    let viewModel = PhoneViewModel()
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = Color.white
-        
         configureLayout()
-        
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        bind()
     }
     
-    @objc func nextButtonClicked() {
-        navigationController?.pushViewController(NicknameViewController(), animated: true)
+    private func bind() {
+        
+        let input = PhoneViewModel.Input(tap: nextButton.rx.tap, 
+                                         text: phoneTextField.rx.text)
+        let output = viewModel.transform(input: input)
+        
+        output.validText
+            .bind(to: nextButton.rx.title())
+            .disposed(by: disposeBag)
+        
+        output.validation
+            .bind(to: nextButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.tap
+            .bind { _ in
+                print("버튼 클릭!")
+            }
+            .disposed(by: disposeBag)
     }
-
     
     func configureLayout() {
         view.addSubview(phoneTextField)

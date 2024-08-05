@@ -77,9 +77,9 @@ class BirthdayViewController: UIViewController {
     // let month = BehaviorSubject(value: 00)
     // let day = BehaviorSubject(value: 0)
     
-    let year = BehaviorRelay(value: 0000)
-    let month = BehaviorRelay(value: 00)
-    let day = BehaviorRelay(value: 0)
+    let viewModel = BirthdayViewModel()
+    
+    
     
     let disposeBag = DisposeBag()
     
@@ -94,41 +94,26 @@ class BirthdayViewController: UIViewController {
     }
     
     private func bind() {
-        birthDayPicker.rx.date
-            .bind(with: self) { owner, date in
-                print(date)
-                
-                let component = Calendar.current.dateComponents([.year, .month, .day], from: date)
-                // print(component.year)
-                // print(component.month)
-                // print(component.day)
-                
-                // owner.yearLabel.text = "\(component.year ?? 0)년"
-                // owner.monthLabel.text = "\(component.month ?? 0)월"
-                // owner.dayLabel.text = "\(component.day ?? 0)일"
-                
-                owner.year.accept(component.year!) // Relay에서 사용하는 onNext = accept
-                owner.month.accept(component.month!)
-                owner.day.accept(component.day!)
-                
-            }
-            .disposed(by: disposeBag)
+        let input = BirthdayViewModel.Input(
+            birthday: birthDayPicker.rx.date,
+            nextButtonTap: nextButton.rx.tap)
+        let output = viewModel.transform(input: input)
         
         /// 아래 `year, month, day` 할당하는 방법 3가지가 모두 똑같이 동작함!
         /// year가 yearLabel에 표시되는 것이 실패할 경우는 없다.
         /// 그래서 complete, error 처리를 해줄 필요가 없는 bind를 사용한다.
-        year
+        output.year
             .map({ "\($0)년" })
             .bind(to: yearLabel.rx.text)
             .disposed(by: disposeBag)
         
-        month
+        output.month
             .bind(with: self) { owner, value in
                 owner.monthLabel.text = "\(value)월"
             }
             .disposed(by: disposeBag)
         
-        day
+        output.day
             .observe(on: MainScheduler.instance)
             .subscribe(with: self) { owner, value in
                 owner.dayLabel.text = "\(value)일"
@@ -136,7 +121,7 @@ class BirthdayViewController: UIViewController {
             .disposed(by: disposeBag)
         
         
-        nextButton.rx.tap
+        output.nextButtonTap
             .bind(with: self) { owner, _ in
                 owner.navigationController?.pushViewController(SearchViewController(), animated: true)
             }
