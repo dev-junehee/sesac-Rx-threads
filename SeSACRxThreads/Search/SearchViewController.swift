@@ -22,6 +22,7 @@ class SearchViewController: UIViewController {
     
     let searchBar = UISearchBar()
        
+    let viewModel = SearchViewModel()
     let disposeBag = DisposeBag()
     
     var data = ["A", "B", "C", "AB", "D", "ABC", "BBB", "EC", "SA", "AAAB", "ED", "F", "G", "H"]
@@ -32,7 +33,33 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         configure()
         setSearchController()
-        bind()
+        // bind()
+        bindRefactoring()
+    }
+    
+    func bindRefactoring() {
+        viewModel.list
+            .bind(to: tableView.rx.items(cellIdentifier: SearchTableViewCell.identifier, cellType: SearchTableViewCell.self)) { (row, element, cell) in
+                 
+                cell.appNameLabel.text = element
+                cell.appIconImageView.backgroundColor = .systemBlue
+                
+                cell.downloadButton.rx.tap
+                    .bind(with: self) { owner, _ in
+                        owner.navigationController?.pushViewController(DetailViewController(), animated: true)
+                    }
+                    .disposed(by: cell.disposeBag)  // 이 부분 유념!
+
+            }
+            .disposed(by: disposeBag)
+        
+        searchBar.rx.text.orEmpty
+            .bind(to: viewModel.inputQuery)
+            .disposed(by: disposeBag)
+        
+        searchBar.rx.searchButtonClicked
+            .bind(to: viewModel.inputSearchButtonTap)
+            .disposed(by: disposeBag)
     }
     
     func bind() {
@@ -64,15 +91,15 @@ class SearchViewController: UIViewController {
             .disposed(by: disposeBag)
         
         /// `Debounce vs Throttle`
-        // searchBar.rx.text.orEmpty
-        //     .debounce(.milliseconds(500), scheduler: MainScheduler.instance) // 실시간 검색을 하는데 ~초 기다렸다가 이후 코드 실행해줘!
-        //     .distinctUntilChanged()
-        //     .bind(with: self) { owner, value in
-        //         print("실시간 검색", value)
-        //         let result = value.isEmpty ? owner.data : owner.data.filter { $0.contains(value) }
-        //         owner.list.onNext(result)
-        //     }
-        //     .disposed(by: disposeBag)
+        searchBar.rx.text.orEmpty
+            .debounce(.milliseconds(500), scheduler: MainScheduler.instance) // 실시간 검색을 하는데 ~초 기다렸다가 이후 코드 실행해줘!
+            .distinctUntilChanged()
+            .bind(with: self) { owner, value in
+                print("실시간 검색", value)
+                let result = value.isEmpty ? owner.data : owner.data.filter { $0.contains(value) }
+                owner.list.onNext(result)
+            }
+            .disposed(by: disposeBag)
     }
      
     private func setSearchController() {

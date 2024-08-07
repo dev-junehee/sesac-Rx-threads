@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // let rootViewController = UINavigationController(rootViewController: SignInViewController())
         // let rootViewController = UINavigationController(rootViewController: SearchViewController())
         // let rootViewController = UINavigationController(rootViewController: PhoneViewController())
-        let rootViewController = UINavigationController(rootViewController: NicknameViewController())
+        // let rootViewController = UINavigationController(rootViewController: NicknameViewController())
+        let rootViewController = UINavigationController(rootViewController: BoxOfficeViewController())
          
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()

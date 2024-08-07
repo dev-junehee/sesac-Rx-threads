@@ -33,6 +33,11 @@
 		04F6DC022C5B0D8200667F4D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6DC012C5B0D8200667F4D /* DetailViewController.swift */; };
 		C48061742C606BB4003FF7EE /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061732C606BB4003FF7EE /* PhoneViewModel.swift */; };
 		C48061762C606CB0003FF7EE /* BirthdayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061752C606CB0003FF7EE /* BirthdayViewModel.swift */; };
+		C48061A92C62FEDD003FF7EE /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061A82C62FEDD003FF7EE /* SearchViewModel.swift */; };
+		C48061AC2C630AC5003FF7EE /* BoxOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061AB2C630AC5003FF7EE /* BoxOfficeViewController.swift */; };
+		C48061AE2C630AD1003FF7EE /* BoxOfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061AD2C630AD1003FF7EE /* BoxOfficeViewModel.swift */; };
+		C48061B02C630AFC003FF7EE /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061AF2C630AFC003FF7EE /* MovieCollectionViewCell.swift */; };
+		C48061B22C630B03003FF7EE /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48061B12C630B03003FF7EE /* MovieTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +85,11 @@
 		04F6DC012C5B0D8200667F4D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C48061732C606BB4003FF7EE /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
 		C48061752C606CB0003FF7EE /* BirthdayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewModel.swift; sourceTree = "<group>"; };
+		C48061A82C62FEDD003FF7EE /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		C48061AB2C630AC5003FF7EE /* BoxOfficeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewController.swift; sourceTree = "<group>"; };
+		C48061AD2C630AD1003FF7EE /* BoxOfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewModel.swift; sourceTree = "<group>"; };
+		C48061AF2C630AFC003FF7EE /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		C48061B12C630B03003FF7EE /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +143,7 @@
 		041280222AEF9BAB00972552 /* SeSACRxThreads */ = {
 			isa = PBXGroup;
 			children = (
+				C48061AA2C630AB8003FF7EE /* BoxOffice */,
 				041280532AEF9C1F00972552 /* SignUp */,
 				041280542AEF9C2600972552 /* SignIn */,
 				0412806D2AEFAD0F00972552 /* SignUpOptional */,
@@ -211,8 +222,20 @@
 				04F6DBFD2C5B0C0300667F4D /* SearchViewController.swift */,
 				04F6DBFF2C5B0C2200667F4D /* SearchTableViewCell.swift */,
 				04F6DC012C5B0D8200667F4D /* DetailViewController.swift */,
+				C48061A82C62FEDD003FF7EE /* SearchViewModel.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		C48061AA2C630AB8003FF7EE /* BoxOffice */ = {
+			isa = PBXGroup;
+			children = (
+				C48061AB2C630AC5003FF7EE /* BoxOfficeViewController.swift */,
+				C48061AD2C630AD1003FF7EE /* BoxOfficeViewModel.swift */,
+				C48061AF2C630AFC003FF7EE /* MovieCollectionViewCell.swift */,
+				C48061B12C630B03003FF7EE /* MovieTableViewCell.swift */,
+			);
+			path = BoxOffice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,13 +377,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C48061AE2C630AD1003FF7EE /* BoxOfficeViewModel.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
 				C48061742C606BB4003FF7EE /* PhoneViewModel.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
+				C48061A92C62FEDD003FF7EE /* SearchViewModel.swift in Sources */,
 				0412806C2AEFABFE00972552 /* PasswordViewController.swift in Sources */,
 				041280562AEFA04800972552 /* SignInViewController.swift in Sources */,
 				041280282AEF9BAB00972552 /* ViewController.swift in Sources */,
+				C48061AC2C630AC5003FF7EE /* BoxOfficeViewController.swift in Sources */,
 				041280632AEFA0CE00972552 /* PointButton.swift in Sources */,
 				04F6DC022C5B0D8200667F4D /* DetailViewController.swift in Sources */,
 				041280242AEF9BAB00972552 /* AppDelegate.swift in Sources */,
@@ -370,8 +396,10 @@
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
 				041280712AEFAD3D00972552 /* PhoneViewController.swift in Sources */,
 				C48061762C606CB0003FF7EE /* BirthdayViewModel.swift in Sources */,
+				C48061B02C630AFC003FF7EE /* MovieCollectionViewCell.swift in Sources */,
 				041280262AEF9BAB00972552 /* SceneDelegate.swift in Sources */,
 				041280582AEFA05300972552 /* SignInViewModel.swift in Sources */,
+				C48061B22C630B03003FF7EE /* MovieTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
