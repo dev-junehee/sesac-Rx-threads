@@ -26,6 +26,27 @@ final class BoxOfficeViewController: UIViewController {
         super.viewDidLoad()
         configure()
         bind()
+        // createObservable()
+    }
+    
+    // Observable Create  Practice
+    /// `Create` operator
+    /// 강의자료 47회차 - Observable LifeCycle
+    private func createObservable() {
+        let random = Observable<Int>.create { value in
+            value.onNext(Int.random(in: 1...100))
+            return Disposables.create()
+        }
+        
+        random
+            .subscribe(with: self) { owner, value in
+                print("random", value)
+            } onCompleted: { value in
+                print("completed")
+            } onDisposed: { value in
+                print("disposed")
+            }
+            .disposed(by: disposeBag)
     }
     
     private func bind() {
@@ -42,9 +63,10 @@ final class BoxOfficeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        output.movieList
+        output.boxOfficeList
             .bind(to: tableView.rx.items(cellIdentifier: MovieTableViewCell.identifier, cellType: MovieTableViewCell.self)) { (row, element, cell) in
-                cell.appNameLabel.text = element
+                cell.appNameLabel.text = element.movieNm
+                cell.downloadButton.setTitle(element.openDt, for: .normal)
             }
             .disposed(by: disposeBag)
         
