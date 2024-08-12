@@ -37,15 +37,21 @@ class SignInViewController: UIViewController {
         let input = SignInViewModel.Input(tap: signInButton.rx.tap)
         let output = viewModel.transform(input: input)
         
-        // output.text
-        //     .observe(on: MainScheduler.instance) // bind는 메인스레드를 보장하지 않기 때문에 필요 시 해당 코드를 작성해주어야 함
-        //     .bind(with: self) { owner, value in
-        //         owner.emailTextField.text = value
-        //     }
-        //     .disposed(by: disposeBag)
-        
         output.text
-            .asDriver(onErrorJustReturn: "")    // 에러가 발생하면 어떤 문자열로 대체하면 될까? - 예외 케이스 처리하는 부분
+            .map { joke in
+                return joke.joke
+            }
+            .drive(emailTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        // Observable<String>: next, complete, error 전부 전달 가능
+        
+        // Driver >> drive
+        // 스트림공유(share), 메인스레드 동작 보장, 오류 허용X
+        output.text
+            .map { value in
+                return "농담: \(value.id)"
+            }
             .drive(navigationItem.rx.title)
             .disposed(by: disposeBag)
         

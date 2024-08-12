@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 import RxSwift
 
 enum APIError: Error {
@@ -19,6 +20,48 @@ final class NetworkManager {
     
     static let shared = NetworkManager()
     private init() { }
+    
+    // Observable 객체로 Alamofire 통신
+    func fetchJoke() -> Observable<Joke> {
+        return Observable.create { observer -> Disposable in
+            AF.request(API.jokeURL)
+                .validate(statusCode: 200...299)
+                .responseDecodable(of: Joke.self) { response in
+                    switch response.result {
+                    case .success(let value):
+                        // 성공하면 next 이벤트 전달
+                        observer.onNext(value)
+                        observer.onCompleted() // 바로 종료해주기 위해서!
+                    case .failure(let error):
+                        // 실패하면 error 이벤트 전달
+                        observer.onError(error) // 에러는 dispose로 연결되기 때문에 별도 처리 필요 X
+                    }
+                }
+            return Disposables.create()
+        }.debug("Joke API Call")
+    }
+    
+    // Single 객체로 Alamofire 통신
+    func fetchJokeWithSingle() -> Single<Joke> {
+        return Single.create { observer -> Disposable in
+            AF.request(API.jokeURL)
+                .validate(statusCode: 200...299)
+                .responseDecodable(of: Joke.self) { response in
+                    switch response.result {
+                    case .success(let value):
+                        observer(.success(value))
+                    case .failure(let error):
+                        observer(.failure(error))
+                    }
+                }
+            return Disposables.create()
+        }.debug("Joke API Call")
+    }
+    
+    // Single 객체로 Alamofire 통신 + ResultType 활용
+    func fetchJokeWithSingleResultType() {
+        
+    }
     
     /// `combineLatest, withLatestFrom, zip, just, debounce`...
     /// 위 연산자들 처럼 `callBoxOffice`도 내가 원하는 걸 만든 연산자라고 보면 된다!
@@ -34,6 +77,7 @@ final class NetworkManager {
             URLSession.shared.dataTask(with: URL) { data, response, error in
                 /// 에러가 있을 땐 문제가 생겼다는 것!
                 if let error = error {
+                    print("call boxoffice error", error)
                     observer.onError(APIError.unknownResponse)
                     return
                 }
