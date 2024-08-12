@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 import SnapKit
 
 class SignInViewController: UIViewController {
@@ -14,6 +16,9 @@ class SignInViewController: UIViewController {
     let passwordTextField = SignTextField(placeholderText: "비밀번호를 입력해주세요")
     let signInButton = PointButton(title: "로그인")
     let signUpButton = UIButton()
+    
+    let viewModel = SignInViewModel()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,27 @@ class SignInViewController: UIViewController {
         configure()
         
         signUpButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
+        
+        bind()
+    }
+    
+    func bind() {
+        let input = SignInViewModel.Input(tap: signInButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        // output.text
+        //     .observe(on: MainScheduler.instance) // bind는 메인스레드를 보장하지 않기 때문에 필요 시 해당 코드를 작성해주어야 함
+        //     .bind(with: self) { owner, value in
+        //         owner.emailTextField.text = value
+        //     }
+        //     .disposed(by: disposeBag)
+        
+        output.text
+            .asDriver(onErrorJustReturn: "")    // 에러가 발생하면 어떤 문자열로 대체하면 될까? - 예외 케이스 처리하는 부분
+            .drive(navigationItem.rx.title)
+            .disposed(by: disposeBag)
+        
+        
     }
     
     @objc func signUpButtonClicked() {
