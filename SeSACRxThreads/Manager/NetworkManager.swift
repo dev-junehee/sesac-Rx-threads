@@ -24,7 +24,8 @@ final class NetworkManager {
     // Observable 객체로 Alamofire 통신
     func fetchJoke() -> Observable<Joke> {
         return Observable.create { observer -> Disposable in
-            AF.request(API.jokeURL)
+            // AF.request(API.jokeURL)
+            AF.request("")
                 .validate(statusCode: 200...299)
                 .responseDecodable(of: Joke.self) { response in
                     switch response.result {
@@ -44,7 +45,8 @@ final class NetworkManager {
     // Single 객체로 Alamofire 통신
     func fetchJokeWithSingle() -> Single<Joke> {
         return Single.create { observer -> Disposable in
-            AF.request(API.jokeURL)
+            // AF.request(API.jokeURL)
+            AF.request("")
                 .validate(statusCode: 200...299)
                 .responseDecodable(of: Joke.self) { response in
                     switch response.result {
@@ -59,8 +61,23 @@ final class NetworkManager {
     }
     
     // Single 객체로 Alamofire 통신 + ResultType 활용
-    func fetchJokeWithSingleResultType() {
-        
+    func fetchJokeWithSingleResultType() -> Single<Result<Joke, ErrorType>> {
+        return Single.create { observer -> Disposable in
+            // AF.request(API.jokeURL)
+            AF.request("")
+                .validate(statusCode: 200...299)
+                .responseDecodable(of: Joke.self) { response in
+                    switch response.result {
+                    case .success(let value):
+                        // observer(.success(value))
+                        observer(.success(.success(value)))
+                    case .failure(let error):
+                        // observer(.failure(error))
+                        observer(.success(.failure(.invalidEmail)))
+                    }
+                }
+            return Disposables.create()
+        }.debug("Joke API Call")
     }
     
     /// `combineLatest, withLatestFrom, zip, just, debounce`...

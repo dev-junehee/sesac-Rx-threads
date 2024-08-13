@@ -16,11 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let rootViewController = UINavigationController(rootViewController: SignInViewController())
+        // let rootViewController = UINavigationController(rootViewController: SignInViewController())
         // let rootViewController = UINavigationController(rootViewController: SearchViewController())
         // let rootViewController = UINavigationController(rootViewController: PhoneViewController())
         // let rootViewController = UINavigationController(rootViewController: NicknameViewController())
         // let rootViewController = UINavigationController(rootViewController: BoxOfficeViewController())
+        let rootViewController = UINavigationController(rootViewController: ViewController())
          
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
