@@ -47,6 +47,8 @@
 		C480628D2C6C528C003FF7EE /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C480628C2C6C528C003FF7EE /* String+.swift */; };
 		C48062952C6C590C003FF7EE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C48062942C6C590B003FF7EE /* Localizable.xcstrings */; };
 		C48062972C6C590C003FF7EE /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C48062962C6C590C003FF7EE /* InfoPlist.xcstrings */; };
+		C480629A2C6CBF2D003FF7EE /* CrawlingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48062992C6CBF2D003FF7EE /* CrawlingViewController.swift */; };
+		C480629D2C6CBF86003FF7EE /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = C480629C2C6CBF86003FF7EE /* SwiftSoup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,7 @@
 		C48062932C6C590B003FF7EE /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		C48062942C6C590B003FF7EE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C48062962C6C590C003FF7EE /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		C48062992C6CBF2D003FF7EE /* CrawlingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,7 @@
 				C480624D2C69A73F003FF7EE /* Alamofire in Frameworks */,
 				0412805D2AEFA09E00972552 /* RxSwift in Frameworks */,
 				0412805B2AEFA09E00972552 /* RxCocoa in Frameworks */,
+				C480629D2C6CBF86003FF7EE /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +167,7 @@
 		041280222AEF9BAB00972552 /* SeSACRxThreads */ = {
 			isa = PBXGroup;
 			children = (
+				C48062982C6CBF02003FF7EE /* CrawlingTest */,
 				C48062512C69A808003FF7EE /* Model */,
 				C48062502C69A802003FF7EE /* Manager */,
 				C48061AA2C630AB8003FF7EE /* BoxOffice */,
@@ -281,6 +286,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C48062982C6CBF02003FF7EE /* CrawlingTest */ = {
+			isa = PBXGroup;
+			children = (
+				C48062992C6CBF2D003FF7EE /* CrawlingViewController.swift */,
+			);
+			path = CrawlingTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -302,6 +315,7 @@
 				0412805C2AEFA09E00972552 /* RxSwift */,
 				0412805F2AEFA0AC00972552 /* SnapKit */,
 				C480624C2C69A73F003FF7EE /* Alamofire */,
+				C480629C2C6CBF86003FF7EE /* SwiftSoup */,
 			);
 			productName = SeSACRxThreads;
 			productReference = 041280202AEF9BAB00972552 /* SeSACRxThreads.app */;
@@ -381,6 +395,7 @@
 				041280592AEFA09D00972552 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				0412805E2AEFA0AC00972552 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C480624B2C69A73F003FF7EE /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C480629B2C6CBF86003FF7EE /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 041280212AEF9BAB00972552 /* Products */;
 			projectDirPath = "";
@@ -428,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C48061AE2C630AD1003FF7EE /* BoxOfficeViewModel.swift in Sources */,
+				C480629A2C6CBF2D003FF7EE /* CrawlingViewController.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
 				C48061742C606BB4003FF7EE /* PhoneViewModel.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
@@ -826,6 +842,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		C480629B2C6CBF86003FF7EE /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -848,6 +872,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C480624B2C69A73F003FF7EE /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		C480629C2C6CBF86003FF7EE /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C480629B2C6CBF86003FF7EE /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
