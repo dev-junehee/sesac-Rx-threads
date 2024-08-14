@@ -52,6 +52,26 @@ class ViewController: UIViewController {
         
         // bind()
         bind2()
+        
+        // Localization
+        let next = NSLocalizedString("button_next", comment: "")    // key - comment (코멘트는 보충설명! 필요없으면 비워두기)
+        nextButton.setTitle(next, for: .normal)
+        let title = NSLocalizedString("navigation_title", comment: "")
+        navigationItem.title = title
+        
+        // NSLocalizedString...이 계속 반복되네? 
+        // String Extension을 통해 해결해보자
+        let next2 = "button_next".localized()
+        nextButton.setTitle(next2, for: .normal)
+        navigationItem.title = "navigation_title".localized()
+        
+        
+        // 저는 11살 입니다. 나는 40살 입니다.
+        // I am 11 years old. I am 40 years old.
+        // 중간에 변수가 들어가야 한다면? 변수를 담으면서 다국어를 표현하려면?
+        let title2 = String(format: "introduce".localized(), "랄랄랄", 100)
+        navigationItem.title = title2
+        navigationItem.title = "introduce".localized(string: "랄랄랄", number: 100)    // String Extension 사용
     }
     
     private func bind() {
