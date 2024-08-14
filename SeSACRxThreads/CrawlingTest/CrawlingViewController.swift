@@ -67,13 +67,14 @@ final class CrawlingViewController: UIViewController {
                 let gameDetail = try game.select("div#_tab_box_kbo").select("div.hmb_list").select("ul").select("li.hmb_list_items")
                 
                 for item in gameDetail {
-                    print("========================================================================")
-                    print("item >>>", item)
                     
                     print("========================================================================")
                     let left = try item.select("div.vs_list1").select("div.inner")
-                    print("detail >>>", try left.text())
+                    print("left >>>", try left.text())
                     
+                    print("========================================================================")
+                    let right = try item.select("div.vs_list2").select("div.inner")
+                    print("right >>>", try right.text())
                 }
                 
             } catch (let error) {
