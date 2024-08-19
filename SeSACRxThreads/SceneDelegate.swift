@@ -21,8 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // let rootViewController = UINavigationController(rootViewController: PhoneViewController())
         // let rootViewController = UINavigationController(rootViewController: NicknameViewController())
         // let rootViewController = UINavigationController(rootViewController: BoxOfficeViewController())
-        // let rootViewController = UINavigationController(rootViewController: ViewController())
-        let rootViewController = CrawlingViewController()
+        let rootViewController = UINavigationController(rootViewController: ViewController())
+        
+        // let rootViewController = CrawlingViewController()
          
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()

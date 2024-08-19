@@ -35,9 +35,6 @@ class ViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     let nextButton = PointButton(title: "다음")
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +69,10 @@ class ViewController: UIViewController {
         let title2 = String(format: "introduce".localized(), "랄랄랄", 100)
         navigationItem.title = title2
         navigationItem.title = "introduce".localized(string: "랄랄랄", number: 100)    // String Extension 사용
+        
+        
+        
+        errorCheck()
     }
     
     private func bind() {
@@ -190,6 +191,13 @@ class ViewController: UIViewController {
             observer.onCompleted()
             return Disposables.create()
         }
+    }
+    
+    private func errorCheck() {
+        /// 오류 발생 코드
+        let number = [1, 2, 3]
+        navigationItem.title = "\(number[100])"
+        
     }
 
 }

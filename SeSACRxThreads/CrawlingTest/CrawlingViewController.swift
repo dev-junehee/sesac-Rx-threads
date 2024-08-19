@@ -23,7 +23,7 @@ final class CrawlingViewController: UIViewController {
         }
         
         // crawlingKBO()
-        crawlingNaverSport()
+        // crawlingNaverSport()
     }
     
     private func crawlingKBO() {
